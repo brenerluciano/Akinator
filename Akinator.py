@@ -33,7 +33,19 @@ def confirmar_por_score(respostas, nome_heroi, perguntas_feitas, minimo_confirm=
 
 
 def jogo_akinator():
-    print("Pense em um super-herói! Responda com 's' (sim) ou 'n' (não).\n")
+    print("Pense em um super-herói da lista abaixo:\n\n"
+      "- Aquaman\n"
+      "- Flash\n"
+      "- Mulher Maravilha\n"
+      "- Batman\n"
+      "- Superman\n"
+      "- Capitão América\n"
+      "- Hulk\n"
+      "- Thor\n"
+      "- Homem-Aranha\n"
+      "- Homem de Ferro\n\n"
+      "Vamos tentar adivinhar quem você escolheu!\n"
+      "Para isso, você deve responder às perguntas com 's' (sim) ou 'n' (não).\n")
     perguntas_feitas = 0
     heroi_encontrado = None  # Se nenhum herói for encontrado, será "Zé Ninguém"
 
@@ -179,7 +191,7 @@ def jogo_akinator():
     if heroi_encontrado:
         print(f"\n💡 Seu herói é o: {heroi_encontrado}!!!")
     else:
-        print("\n🤔 Você pensou em... **Zé Ninguém**! Não consegui adivinhar seu herói.")
+        print("\n🤔 Você pensou em... *Zé Ninguém*! Não consegui adivinhar seu herói.")
 
 
 if __name__ == "__main__":
