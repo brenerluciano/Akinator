@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Akinator de Heróis — Flask</title>
+
+  <!-- Tailwind rápido (dev). Em produção, recomendo compilar -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { theme: { extend: { colors: {} } } }</script>
+
+  <!-- Ícones -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .hero-card { @apply bg-slate-900/60 border border-slate-800 rounded-2xl p-3 flex flex-col items-center gap-2; }
+    .hero-img  { @apply w-full aspect-square object-cover rounded-xl; }
+    .hero-name { @apply text-sm text-slate-200 text-center; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-7 h-7"></i> Akinator de Heróis
+        </h1>
+        <p class="text-slate-300 mt-1">Pense em um desses heróis e vou tentar adivinhá-lo</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btnReset" class="btn-secondary rounded-2xl">
+          <i data-lucide="refresh-ccw" class="w-4 h-4 mr-2"></i> Reiniciar
+        </button>
+        <button id="btnStart" class="btn-primary rounded-2xl">
+          <i data-lucide="git-branch" class="w-4 h-4 mr-2"></i> Começar
+        </button>
+      </div>
+    </header>
+
+    <!-- GRADE DE HERÓIS -->
+    <section class="mb-8">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        {% for h in heroes %}
+        <figure class="hero-card">
+          <img
+            class="hero-img"
+            src="{{ url_for('static', filename=h.img) }}"
+            alt="{{ h.name }}"
+            onerror="this.onerror=null;this.src='{{ url_for('static', filename='heroes/placeholder.png') }}';"
+          />
+          <figcaption class="hero-name">{{ h.name }}</figcaption>
+        </figure>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- BLOCO DO JOGO -->
+    <section class="space-y-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2 text-slate-300 text-sm">
+              <i data-lucide="list-checks" class="w-5 h-5"></i>
+              <span>Perguntas feitas: <span id="askedCount">0</span></span>
+            </div>
+            <span class="badge">mín. <span id="minQuestions">5</span></span>
+          </div>
+
+          <div class="w-full bg-slate-800/70 rounded-full h-2 overflow-hidden">
+            <div id="progressBar" class="h-2 bg-slate-100 transition-all duration-300" style="width: 0%"></div>
+          </div>
+
+          <div id="questionArea" class="mt-6 min-h-[170px] flex items-center justify-center text-center">
+            <p class="text-slate-300">Clique em <span class="text-slate-100 font-medium">Começar</span> para iniciar.</p>
+          </div>
+
+          <div id="answersButtons" class="mt-6 flex items-center justify-center gap-4 hidden">
+            <button id="btnYes" class="btn-primary px-8 py-3 rounded-2xl">Sim</button>
+            <button id="btnNo" class="btn-secondary px-8 py-3 rounded-2xl">Não</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h3 class="text-lg font-medium mb-4">Histórico de respostas</h3>
+          <ul id="historyList" class="space-y-2 text-left text-slate-200">
+            <li class="text-slate-400">Sem respostas ainda.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-8 text-center text-xs text-slate-500">
+      Alunos: Alef Cezario, Brener Luciano e João Vitor
+    </footer>
+  </div>
+
+<script>lucide.createIcons();</script>
+
+<!-- HERO_MAP deve vir ANTES do app.js -->
+<script>
+  window.__HERO_MAP__ = {
+    {% for h in heroes %}
+      "{{ h.name }}": "{{ url_for('static', filename=h.img) }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+  };
+</script>
+
+<!-- app.js: apenas 1 vez -->
+<script src="{{ url_for('static', filename='app.js') }}"></script>

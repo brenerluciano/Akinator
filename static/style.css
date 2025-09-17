@@ -1,0 +1,73 @@
+.btn-primary { 
+
+  background: #e2e8f0; color: #0f172a; font-weight: 600;
+  padding: 0.5rem 1rem; transition: .15s; 
+}
+.btn-primary:hover { background: white; }
+
+.btn-secondary { 
+  background: #1f2937; color: #e5e7eb; font-weight: 600;
+  padding: 0.5rem 1rem; transition: .15s; 
+}
+.btn-secondary:hover { background: #374151; }
+
+.card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid #1f2937;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+.card-body { padding: 1.5rem; }
+
+.badge {
+  background: #1f2937; color: #e5e7eb;
+  padding: .25rem .75rem; border-radius: 999px; font-size: .75rem;
+}
+
+.tag { background: rgba(31,41,55,.7); color: #e5e7eb; padding: .25rem .5rem; border-radius: .75rem; }
+.tag-yes { background: rgba(16,185,129,.15); color: #6ee7b7; }
+.tag-no  { background: rgba(244,63,94,.15); color: #fda4af; }
+
+
+/* Ajustes nos cards */
+
+.hero-card {
+  width: 180px;                
+  background: rgba(15,23,42,.6);
+  border: 1px solid #1f2937;
+  border-radius: 1rem;
+  padding: .75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+}
+
+
+.hero-img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+/* Ajustes individuais para centralizar imagens */
+.hero-img[alt="Superman"] {
+  object-position: top center;   
+}
+
+.hero-img[alt="Homem de Ferro"] {
+  object-position: top center;   
+}
+
+
+
+@media (max-width: 1024px) {
+  .hero-img { width: 140px; height: 140px; }
+}
+@media (max-width: 640px) {
+  .hero-img { width: 120px; height: 120px; }
+}
+
+/* Imagem mostrada no resultado do palpite */
+.result-img { width: 140px; height: 140px; object-fit: cover; border-radius: .75rem; display: block; margin: 0 auto .75rem auto; }
